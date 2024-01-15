@@ -6,24 +6,57 @@ class Student:
         self.finished_courses = []
         self.courses_in_progress = []
         self.grades = {}
+    
+    def rate_lection(self, mentor, course, grade):
+        if  isinstance(mentor, Lecturer) \
+            and course in mentor.courses_attached \
+            and course in self.courses_in_progress \
+            and grade in range(1,11,1):
+            if course in mentor.grades:
+                mentor.grades[course] += [grade]
+            else:
+                mentor.grades[course] = [grade]
+        else:
+            return 'Ошибка'
         
 class Mentor:
     def __init__(self, name, surname):
         self.name = name
         self.surname = surname
         self.courses_attached = []
-        
+ 
+class Lecturer(Mentor):
+    grades = {}
+
+class Reviewer(Mentor):
     def rate_hw(self, student, course, grade):
-        if isinstance(student, Student) and course in self.courses_attached and course in student.courses_in_progress:
+        if isinstance(student, Student) \
+            and course in self.courses_attached \
+                and course in student.courses_in_progress:
             if course in student.grades:
                 student.grades[course] += [grade]
             else:
                 student.grades[course] = [grade]
         else:
             return 'Ошибка'
- 
-class Lecturer(Mentor):
-    pass
 
-class Reviewer(Mentor):
-    pass
+
+best_student = Student('Ruoy', 'Eman', 'your_gender')
+best_student.courses_in_progress += ['Python']
+ 
+cool_mentor = Lecturer('Some', 'Buddy')
+cool_mentor.courses_attached += ['Python']
+
+best_student.rate_lection (cool_mentor, 'Python', 10)
+
+print(cool_mentor.grades)
+ 
+# cool_mentor.rate_hw(best_student, 'Python', 10)
+# cool_mentor.rate_hw(best_student, 'Python', 10)
+# cool_mentor.rate_hw(best_student, 'Python', 10)
+ 
+# print(cool_mentor.courses_attached)
+# print(isinstance(cool_mentor, Lecturer))
+# print(cool_mentor.courses_attached)
+# print('Python' in best_student.courses_in_progress )
+# print(1 in range(1,11,1))

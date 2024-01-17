@@ -27,6 +27,9 @@ class Student:
             num_graders += len(grade)
         return sum_grades / num_graders
     
+    def __lt__(self, other):
+        return self.__avg_grade() < other.__avg_grade()
+    
     def __str__(self):
         return f'Имя: {self.name}\n' f'Фамилия: {self.surname}\n'\
         f'Средняя оценка за домашние задания: {self.__avg_grade():.1f}\n'\
@@ -52,11 +55,12 @@ class Lecturer(Mentor):
             count_rates += len(self.grades.get(lecture, {}))
         return sum_rates / count_rates
     
+    def __lt__(self, other):
+        return self.__avg_rate() < other.__avg_rate()
+    
     def __str__(self):
         return f'Имя: {self.name}\n' f'Фамилия: {self.surname}\n'\
-        f'Средняя оценка за лекции: {self.__avg_rate():.1f}\n'
-        
-    
+        f'Средняя оценка за лекции: {self.__avg_rate():.1f}'
 
 class Reviewer(Mentor):
     def rate_hw(self, student, course, grade):
@@ -73,58 +77,59 @@ class Reviewer(Mentor):
     def __str__(self):
         return f'Имя: {self.name}\n' f'Фамилия: {self.surname}'
         
-best_student = Student('Ruoy', 'Eman', 'your_gender')
+best_student = Student('Ruoy', 'Eman', 'male')
+second_student = Student('John', 'Travolta', 'male')
+
+bad_mentor = Lecturer('Alex', 'Terrible')
+sad_mentor = Lecturer('Alex', 'Turner')
+
+bad_reviewer = Reviewer('Juliy', 'Gusman')
+sad_reviewer = Reviewer('Judge', 'Dredd')
+
 best_student.courses_in_progress += ['Python']
 best_student.courses_in_progress += ['Java']
+second_student.courses_in_progress += ['Python']
+second_student.courses_in_progress += ['Java']
+best_student.finished_courses += ['SQL']
+second_student.finished_courses += ['SQL']
 
-print(best_student.courses_in_progress)
-bad_mentor = Lecturer('Alex', 'Terrible')
+bad_reviewer.courses_attached += ['Python']
+bad_reviewer.courses_attached += ['Java']
+sad_reviewer.courses_attached += ['Python']
+sad_reviewer.courses_attached += ['Java']
 bad_mentor.courses_attached += ['Python']
 bad_mentor.courses_attached += ['Java']
+sad_mentor.courses_attached += ['Python']
+sad_mentor.courses_attached += ['Java']
 best_student.rate_lection(bad_mentor, 'Python', 2)
-print(bad_mentor.courses_attached)
-# bad_mentor.rate_hw (best_student, 'Python', 10)
-# bad_mentor.rate_hw (best_student, 'Java', 4)
+best_student.rate_lection(sad_mentor, 'Java', 10)
+
+bad_reviewer.rate_hw(best_student, 'Python', 10)
+sad_reviewer.rate_hw(second_student, 'Java', 2)
+
+print(best_student)
+print(best_student > second_student)
 print(bad_mentor)
+print(bad_mentor > sad_mentor)
+print(bad_reviewer)
+def avg_hw_course(student_list, course):
+    sum_rate = 0
+    num_rate = 0
+    for student in student_list:
+        sum_rate += sum(student.grades.get(course, {}))
+        num_rate += len(student.grades.get(course, {}))
+    return sum_rate / num_rate
 
+student_list = [best_student, second_student]
+print (avg_hw_course(student_list, 'Python'))
 
+def avg_lecture_rate(lector_list, course):
+    sum_rate = 0
+    num_rate = 0
+    for lecturer in lecturer_list:
+        sum_rate += sum(lecturer.grades.get(course, {}))
+        num_rate += len(lecturer.grades.get(course, {}))
+    return sum_rate / num_rate
 
-# best_student = Student('Ruoy', 'Eman', 'your_gender')
-# best_student.courses_in_progress += ['Python']
-# best_student.courses_in_progress += ['Java']
-
-# bad_student = Student('R', 'Kelly', 'female')
-# bad_student.courses_in_progress += ['SQL']
-# bad_student.courses_in_progress += ['C++']
-
-
-# cool_mentor = Lecturer('Some', 'Buddy')
-# cool_mentor.courses_attached += ['Python']
-
-# cool_lector = Lecturer('Hannibal', 'Lector')
-# cool_lector.courses_attached += ['Java']
-# cool_lector.courses_attached += ['SQL']
-
-
-# bad_mentor = Reviewer('Alex', 'Terrible')
-# bad_mentor.rate_hw (best_student, 'Python', 10)
-# bad_mentor.rate_hw (best_student, 'Java', 4)
-# best_student.rate_lection (cool_mentor, 'Python', 10)
-# best_student.rate_lection (cool_lector, 'Java', 5)
-# bad_student.rate_lection (cool_lector, 'SQL', 9)
-# bad_student.rate_lection (cool_lector, 'C++', 8)
-# bad_mentor.courses_attached += ['Python']
-# bad_mentor.courses_attached += ['Java']
-# # print(cool_mentor.grades)
-# # print(best_student.name + 'a')
-# print(bad_mentor.courses_attached)
- 
-# # cool_mentor.rate_hw(best_student, 'Python', 10)
-# # cool_mentor.rate_hw(best_student, 'Python', 10)
-# # cool_mentor.rate_hw(best_student, 'Python', 10)
- 
-# print(cool_mentor.courses_attached)
-# print(isinstance(cool_mentor, Lecturer))
-# print(cool_mentor.courses_attached)
-# print('Python' in best_student.courses_in_progress )
-# print(1 in range(1,11,1))
+lecturer_list = [bad_mentor, sad_mentor]
+print(avg_lecture_rate(lecturer_list, 'Python'))

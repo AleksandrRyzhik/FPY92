@@ -133,3 +133,5 @@ def avg_lecture_rate(lector_list, course):
 
 lecturer_list = [bad_mentor, sad_mentor]
 print(avg_lecture_rate(lecturer_list, 'Python'))
+
+print(str(bad_mentor))

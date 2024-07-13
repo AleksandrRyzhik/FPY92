@@ -1,10 +1,10 @@
 {
 	"folders": {},
 	"connections": {
-		"postgres-jdbc-18d975cd2dd-5bd13d5a0746d23c": {
+		"postgres-jdbc-18d975e1df1-48992e97b79edbfa": {
 			"provider": "postgresql",
 			"driver": "postgres-jdbc",
-			"name": "postgres",
+			"name": "postgres 2",
 			"save-password": true,
 			"configuration": {
 				"host": "localhost",
@@ -14,7 +14,22 @@
 				"configurationType": "MANUAL",
 				"home": "postgresql-x64-13",
 				"type": "dev",
-				"provider-properties": {},
+				"properties": {
+					"connectTimeout": "20",
+					"loginTimeout": "20",
+					"escapeSyntaxCallMode": "callIfNoReturn"
+				},
+				"provider-properties": {
+					"@dbeaver-show-non-default-db@": "true",
+					"@dbeaver-show-template-db@": "false",
+					"@dbeaver-show-unavailable-db@": "false",
+					"show-database-statistics": "false",
+					"@dbeaver-read-all-data-types-db@": "false",
+					"read-keys-with-columns": "false",
+					"@dbeaver-use-prepared-statements-db@": "false",
+					"postgresql.dd.plain.string": "false",
+					"postgresql.dd.tag.string": "false"
+				},
 				"auth-model": "native"
 			}
 		}

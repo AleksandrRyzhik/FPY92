@@ -32,6 +32,20 @@
 				},
 				"auth-model": "native"
 			}
+		},
+		"com_clickhouse-18fef3ae712-3c8041a6ad565bf2": {
+			"provider": "clickhouse",
+			"driver": "com_clickhouse",
+			"name": "localhost",
+			"save-password": true,
+			"configuration": {
+				"host": "localhost",
+				"port": "8123",
+				"url": "jdbc:clickhouse://localhost:8123",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"auth-model": "native"
+			}
 		}
 	},
 	"connection-types": {
